@@ -6,7 +6,7 @@
 <!--// role_user(id, user_id,role_id)-->
 <?php
 // Get all posts from DB
-$post = getAllPosts(); // table roles
+$posts = getAllPosts(); // table roles
 
 
 ?>
@@ -26,7 +26,7 @@ $post = getAllPosts(); // table roles
 
 			<!-- Display notification message -->
 			<?php include(ROOT_PATH . '/includes/public/messages.php') ?>
-			<?php if (empty($post)) : ?>
+			<?php if (empty($posts)) : ?>
 				<h1>No post in the database.</h1>
 			<?php else : ?>
 				<table class="table">
@@ -40,7 +40,7 @@ $post = getAllPosts(); // table roles
                         <th>Delete</th>
 					</thead>
 					<tbody>
-						<?php foreach ($post as $key => $post) : ?>
+						<?php foreach ($posts as $key => $post) : ?>
 							<tr>
 								<td><?php echo $key + 1; ?></td>
 								<td>
@@ -52,7 +52,11 @@ $post = getAllPosts(); // table roles
                                 <td>
                                     <?php echo $post['views'] ?>
                                 <td>
-                                    <a class="fa fa-pencil btn publish" href="posts.php?unpublish=<?php echo $post['id'] ?>">
+                                    <?php if ($post['published'] == true) { ?>
+                                        <a class="fa fa-pencil btn publish" href="posts.php?unpublish=<?php echo $post['id'] ?>">
+                                    <?php } else { ?>
+                                        <a class="fa fa-pencil btn unpublish" href="posts.php?publish=<?php echo $post['id'] ?>">
+                                    <?php } ?>
                                 </td>
 								<td>
 									<a class="fa fa-pencil btn edit" href="create_post.php?edit-post=<?php echo $post['id'] ?>">

@@ -2,7 +2,15 @@
 /*--------------------
 post_functions.php
 ------------------------*/
+if (isset($_GET['unpublish'])) {
+    $post_id = $_GET['unpublish'];
+    UnpublishingPost($post_id);
+}
 
+if (isset($_GET['publish'])) {
+    $post_id = $_GET['publish'];
+    PublishingPost($post_id);
+}
 /* - - - - - - - - - -
 - Post functions
 - - - - - - - - - - -*/
@@ -21,7 +29,8 @@ function getAllPosts() {
             'author' => getPostAuthorById($row['user_id']),
             'title' => $row['title'],
             'slug' => $row['slug'],
-            'views' => $row['views']
+            'views' => $row['views'],
+            'published' => $row['published']
         );
     }
 
@@ -43,3 +52,26 @@ function getPostAuthorById($user_id){
     }
 }
 
+function PublishingPost($post_id){
+    global $conn ;
+    $sql = "UPDATE posts SET published=1 WHERE id=$post_id" ;
+    $result = mysqli_query($conn, $sql) ;
+
+    if ($result) {
+        $_SESSION['message'] = "Post published state changed!" ;
+        header("location: posts.php") ;
+        exit(0) ;
+    }
+}
+
+function UnpublishingPost($post_id){
+    global $conn ;
+    $sql = "UPDATE posts SET published=0 WHERE id=$post_id" ;
+    $result = mysqli_query($conn, $sql) ;
+
+    if ($result) {
+        $_SESSION['message'] = "Post published state changed!" ;
+        header("location: posts.php") ;
+        exit(0) ;
+    }
+}
