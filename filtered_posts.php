@@ -1,12 +1,6 @@
 <?php include('config.php'); ?>
 <?php include('includes/public/head_section.php'); ?>
-
-
-
-
-<?php include('config.php'); ?>
-<?php include('includes/public/head_section.php'); ?>
-<?php include(ROOT_PATH . 'includes/all_functions.php');
+<?php include(ROOT_PATH . '/includes/all_functions.php');
 	require_once 'includes/all_functions.php'; ?>
 
 <title>MyWebSite | Home </title>
@@ -35,7 +29,7 @@
                     ?>
                         <div class="post">
                             <div class="category"><?php echo $post['topic']; ?></div>
-                            <img <?php echo $post['image']; ?> class="post_image" alt="">
+                            <img <?php echo BASE_URL . 'static/images/' . $post['image']; ?> class="post_image" alt="">
                             <div class="post_info">
                                 <h2 class="content-title"><?php echo $post['title']; ?></h2>
                                 <p class="post_info"><span><?php echo $post['date']; ?></span></p>
